@@ -62,10 +62,8 @@ class GameController extends ChangeNotifier {
 
     if (!wordList.contains(currentGuess)) {
       message = 'Not in word list';
-      // To make it forgiving, we could allow it anyway, but standard Wordle blocks it.
-      // We will allow it for simplicity since our dictionary is small.
-      // notifyListeners();
-      // return;
+      notifyListeners();
+      return;
     }
 
     guesses.add(currentGuess);
@@ -73,7 +71,7 @@ class GameController extends ChangeNotifier {
 
     if (currentGuess == targetWord) {
       hasWon = true;
-      message = 'You Win!';
+      message = 'Word Guessed!';
     } else if (guesses.length >= 6) {
       hasLost = true;
       message = targetWord;

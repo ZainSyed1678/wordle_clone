@@ -42,23 +42,34 @@ class _GameScreenState extends State<GameScreen> {
             children: [
               const SizedBox(height: 20),
               if (_controller.message.isNotEmpty)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark 
-                        ? Colors.white.withValues(alpha: 0.9) 
-                        : Colors.black.withValues(alpha: 0.8),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    _controller.message,
-                    style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark 
-                          ? Colors.black 
-                          : Colors.white,
-                      fontWeight: FontWeight.bold,
+                Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark 
+                            ? Colors.white.withValues(alpha: 0.9) 
+                            : Colors.black.withValues(alpha: 0.8),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        _controller.message,
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark 
+                              ? Colors.black 
+                              : Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
+                    if (_controller.hasWon) ...[
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _controller.reset,
+                        child: const Text('Next'),
+                      ),
+                    ]
+                  ],
                 )
               else
                 const SizedBox(height: 36), // Preserve height when no message
